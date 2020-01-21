@@ -91,6 +91,14 @@ namespace IotTelemetrySimulator
 
         public virtual Message CreateMessage()
         {
+            if (variableValues == null)
+            {
+                variableValues = new Dictionary<string, object> 
+                {
+                    { Constants.DeviceIdValueName, DeviceID }
+                };
+            }
+
             var (messageBytes, nextVariableValues) = config.PayloadGenerator.Generate(variableValues);
             variableValues = nextVariableValues;
      
@@ -99,13 +107,8 @@ namespace IotTelemetrySimulator
                 CorrelationId = Guid.NewGuid().ToString(),
             };
 
-            if (config.FixPayload == null)
-            {
-                msg.ContentEncoding = Utf8Encoding;
-                msg.ContentType = ApplicationJsonContentType;
-
-            }
-
+            msg.ContentEncoding = Utf8Encoding;
+            msg.ContentType = ApplicationJsonContentType;
 
             if (config.Header != null)
             {
