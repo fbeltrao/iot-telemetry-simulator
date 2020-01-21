@@ -28,8 +28,6 @@ namespace IotTelemetrySimulator
 
         public TelemetryValues Variables { get; set; }
 
-        public byte[] FixPayload { get; set; }
-
         public void EnsureIsValid()
         {
             if (string.IsNullOrEmpty(IotHubConnectionString))
