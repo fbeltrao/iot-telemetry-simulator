@@ -91,17 +91,8 @@ namespace IotTelemetrySimulator
 
         public virtual Message CreateMessage()
         {
-            byte[] messageBytes = config.FixPayload;
-            var hasFreshVariables = false;
-            if (messageBytes == null)
-            {
-                variableValues = config.Variables.NextValues(variableValues);
-                hasFreshVariables = true;
-                variableValues[Constants.DeviceIdValueName] = deviceId;
-
-                var data = config.Template.Create(variableValues);
-                messageBytes = Encoding.UTF8.GetBytes(data);
-            }
+            var (messageBytes, nextVariableValues) = config.PayloadGenerator.Generate(variableValues);
+            variableValues = nextVariableValues;
      
             var msg = new Message(messageBytes)
             {
@@ -118,12 +109,6 @@ namespace IotTelemetrySimulator
 
             if (config.Header != null)
             {
-                if (!hasFreshVariables)
-                {
-                    variableValues = config.Variables.NextValues(variableValues);
-                    hasFreshVariables = true;
-                }
-
                 var headerJson = config.Header.Create(variableValues);
                 if (!string.IsNullOrWhiteSpace(headerJson))
                 {

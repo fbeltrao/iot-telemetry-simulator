@@ -32,6 +32,7 @@ The amount of devices, their names and telemetry generated can be customized usi
 |Template|telemetry payload template (see telemetry template)|
 |FixPayload|fix telemetry payload in base64 format. Use this setting if the content of the message does not need to change|
 |FixPayloadSize|fix telemetry payload size (in bytes). Use this setting if the content of the message does not need to change (will be an array filled with zeros)|
+|PayloadDistribution|Allows the generation of payloads based on a distribution<br />Example: "fixSize(10, 12) template(25, default) fix(65, aaaaBBBBBCCC)" generates 10% a fix payload of 10 bytes, 25% a template generated payload and 65% of the time a fix payload from values aaaaBBBBBCCC|
 |Header|telemetry header template (see telemetry template)|
 |Variables|telemetry variables (see telemetry template)|
 
@@ -72,7 +73,7 @@ Customizable variables can be created with the following properties:
 |min|For random values defines it's minimum. Otherwise, will be the starting value|
 |max|The maximum value generated|
 |values|Defines an array of possible values. Example ["on", "off"]|
-|customlengthstring|Creates a random string of n bytes. Provide n as parameter|
+|customLengthString|Creates a random string of n bytes. Provide n as parameter|
 
 #### Example 1: Telemetry with temperature between 23 and 25 and a counter starting from 100
 
@@ -156,6 +157,7 @@ The cloud runner can be customized with the following parameters (as `-Parameter
 |MessageCount|Total amount of messages to send per device. 0 means no limit, **causing the container to never end. It is your job to stop and delete it!** (Default = 100)|
 |Interval|Interval in which each device will send messages in milliseconds (Default = 1000)|
 |Template|Telemetry payload template to be used<br />(Default = '{ \"deviceId\": \"$.DeviceId\", \"temp\": $.Temp, \"Ticks\": $.Ticks, \"Counter\": $.Counter, \"time\": \"$.Time\", \"engine\": \"$.Engine\", \"source\": \"$.MachineName\" }')|
+|PayloadDistribution|Allows the generation of payloads based on a distribution<br />Example: "fixSize(10, 12) template(25, default) fix(65, aaaaBBBBBCCC)" generates 10% a fix payload of 10 bytes, 25% a template generated payload and 65% of the time a fix payload from values aaaaBBBBBCCC|
 |Header|Header properties template to be used<br />(Default = '')|
 |Variables|Variables used to create the telemetry<br />(Default = '[{name: \"Temp\", random: true, max: 25, min: 23}, {name:\"Counter\", min:100}, {name:\"Engine\", values: [\"on\", \"off\"]}]')|
 |Cpu|Amount of cpus allocated to each container instance (Default = 1.0)|
