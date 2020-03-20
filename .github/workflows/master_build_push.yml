@@ -29,5 +29,6 @@ jobs:
         registry: fbeltrao
         repository: azureiot-telemetrysimulator
         tags: test-ci
-        path: src/IotTelemetrySimulator/
+        dockerfile: src/IotTelemetrySimulator/Dockerfile
         push: true
+        
