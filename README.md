@@ -73,7 +73,7 @@ Customizable variables can be created with the following properties:
 |min|For random values defines it's minimum. Otherwise, will be the starting value|
 |max|The maximum value generated|
 |values|Defines an array of possible values. Example ["on", "off"]|
-|customLengthString|Creates a random string of n bytes. Provide n as parameter|
+|customlengthstring|Creates a random string of n bytes. Provide n as parameter|
 
 #### Example 1: Telemetry with temperature between 23 and 25 and a counter starting from 100
 
@@ -101,6 +101,12 @@ Running with docker:
 
 ```
 docker run -it -e "IotHubConnectionString=HostName=your-iothub-name.azure-devices.net;SharedAccessKeyName=device;SharedAccessKey=your-iothub-key" -e Template="{ \"deviceId\": \"$.DeviceId\", \"temp\": $.Temp, \"Ticks\": $.Ticks, \"Counter\": $.Counter, \"time\": \"$.Time\" }" -e Variables="[{name: \"Temp\", \"random\": true, \"max\": 25, \"min\": 23}, {\"name\":\"Counter\", \"min\":100} ]" fbeltrao/azureiot-telemetrysimulator
+```
+
+calling from PowerShell:
+
+```
+docker run -it -e "IotHubConnectionString=HostName=your-iothub-name.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=your-iothub-key" -e Template="{ \"""deviceId\""": \"""$.DeviceId\""", \"""temp\""": $.Temp, \"""Ticks\""": $.Ticks, \"""Counter\""": $.Counter, \"""time\""": \"""$.Time\""", \"""engine\""": \"""$.Engine\""" }" -e Variables="[{name: \"""Temp\""", \"""random\""": true, \"""max\""": 25, \"""min\""": 23}, {\"""name\""":\"""Counter\""", \"""min\""":100}, {name:\"""Engine\""", values: [\"""on\""", \"""off\"""]}]" -e DeviceCount=1 -e MessageCount=3 fbeltrao/azureiot-telemetrysimulator
 ```
 
 #### Example 2: Adding the engine status ("on" or "off") to the telemetry

@@ -28,6 +28,8 @@ namespace IotTelemetrySimulator
 
         public TelemetryValues Variables { get; set; }
 
+        public byte[] FixPayload { get; set; }
+
         public void EnsureIsValid()
         {
             if (string.IsNullOrEmpty(IotHubConnectionString))
@@ -47,7 +49,6 @@ namespace IotTelemetrySimulator
             config.DeviceCount = configuration.GetValue(nameof(DeviceCount), config.DeviceCount);
             config.MessageCount = configuration.GetValue(nameof(MessageCount), config.MessageCount);
             config.Interval = configuration.GetValue(nameof(Interval), config.Interval);
-
 
             var rawValues = configuration.GetValue<string>(nameof(Variables));
             if (!string.IsNullOrWhiteSpace(rawValues))
@@ -77,7 +78,6 @@ namespace IotTelemetrySimulator
 
             config.PayloadGenerator = new PayloadGenerator(LoadPayloads(configuration, config, logger), new DefaultRandomizer());
             
-
             var rawDeviceList = configuration.GetValue<string>(nameof(DeviceList));
             if (!string.IsNullOrWhiteSpace(rawDeviceList))
             {
