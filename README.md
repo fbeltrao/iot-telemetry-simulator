@@ -1,3 +1,6 @@
+This project moved to Azure Samples: https://github.com/Azure-Samples/Iot-Telemetry-Simulator
+---
+
 ![Master](https://github.com/fbeltrao/iot-telemetry-simulator/workflows/Master%20test%20and%20push/badge.svg)
 
 # Azure Iot device telemetry simulator
